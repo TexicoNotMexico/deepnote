@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Button } from "@mui/material";
+import * as Tone from "tone";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function startDeepNote() {
+    const osc = new Tone.Oscillator().toDestination();
+    osc.frequency.value = "C5";
+    osc.frequency.rampTo("C1", 5);
+    osc.start().stop("+8");
 }
 
-export default App;
+export default function App() {
+    return (
+        <Button
+            variant="contained"
+            onClick={() => {
+                startDeepNote();
+            }}
+        >
+            PLAY
+        </Button>
+    );
+}
