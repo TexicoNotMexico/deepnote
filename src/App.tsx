@@ -16,7 +16,7 @@ export default function App() {
                 startDeepNote();
             }}
         >
-            PLAY
+            Play Deep Note
         </Button>
     );
 }
