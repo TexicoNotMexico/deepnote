@@ -39,6 +39,40 @@ export default function App() {
             "D1",
             "D1",
         ];
+        const chord2 = [
+            "E6",
+            "E6",
+            "E6",
+            "C6",
+            "C6",
+            "C6",
+            "G5",
+            "G5",
+            "G5",
+            "C5",
+            "C5",
+            "C5",
+            "G4",
+            "G4",
+            "G4",
+            "C4",
+            "C4",
+            "C4",
+            "G3",
+            "G3",
+            "G3",
+            "C3",
+            "C3",
+            "C3",
+            "G2",
+            "G2",
+            "G2",
+            "C2",
+            "C2",
+            "C2",
+            "C1",
+            "C1",
+        ];
         const synths = [];
         for (let i = 0; i < 32; i++) {
             synths.push(new Tone.Synth().toDestination());
@@ -71,7 +105,7 @@ export default function App() {
                 synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "1:2");
                 synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "2:0");
                 synth.frequency.exponentialRampToValueAtTime(chord[index], "3:1");
-                synth.volume.setValueAtTime(-48, "0:0");
+                synth.volume.setValueAtTime(-40, "0:0");
                 synth.volume.rampTo(-23, "3:0", "0:0");
                 synth.triggerRelease("7:1");
             }, "0:0");
