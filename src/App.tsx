@@ -5,7 +5,6 @@ import * as Tone from "tone";
 export default function App() {
     const [isPlaying, setIsPlaying] = useState(false);
     const startDeepNote = () => {
-        setIsPlaying(true);
         const chord = [
             "F#6",
             "F#6",
@@ -47,30 +46,54 @@ export default function App() {
         Tone.Transport.bpm.value = 60;
         Tone.Transport.schedule(() => {
             setIsPlaying(false);
-        }, "8:0");
+        }, "7:1");
+        Tone.Transport.start("+0", "0:0");
+
         synths.forEach((synth, index) => {
-            synth.triggerAttack(300, "0:3", 0.05);
-            synth.frequency.setValueAtTime(Math.random() * (400 - 200) + 200, "0:3");
-            synth.frequency.setRampPoint("2:3");
-            synth.frequency.exponentialRampToValueAtTime(chord[index], "4:0");
-            synth.triggerRelease("8:0");
+            if ((index - 1) % 3 === 0) {
+                synth.detune.value = 3;
+            } else if ((index - 2) % 3 === 0) {
+                synth.detune.value = -3;
+            }
+            synth.set({
+                envelope: {
+                    attack: 0.15,
+                    decay: 0.0,
+                    sustain: 1,
+                    release: 1,
+                },
+            });
+            Tone.Transport.schedule(() => {
+                synth.triggerAttack(300, "0:0", 1);
+                synth.frequency.setValueAtTime(Math.random() * (400 - 200) + 200, "0:0");
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "0:2");
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "1:0");
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "1:2");
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "2:0");
+                synth.frequency.exponentialRampToValueAtTime(chord[index], "3:1");
+                synth.volume.setValueAtTime(-48, "0:0");
+                synth.volume.rampTo(-23, "3:0", "0:0");
+                synth.triggerRelease("7:1");
+            }, "0:0");
         });
     };
     return (
         <Button
-            variant="contained"
+            variant="outlined"
             onClick={async () => {
                 if (!isPlaying) {
                     try {
                         await Tone.start();
+                        setIsPlaying(true);
                         startDeepNote();
                     } catch (error) {
                         console.error(error);
                     }
                 }
             }}
+            disabled={isPlaying}
         >
-            Play Deep Note
+            {isPlaying ? "Playing..." : "Play Deep Note"}
         </Button>
     );
 }
