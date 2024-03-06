@@ -1,8 +1,7 @@
-import { Button } from "@mui/material";
 import { useState } from "react";
 import * as Tone from "tone";
 
-export default function App() {
+function App() {
     const [isPlaying, setIsPlaying] = useState(false);
     const startDeepNote = () => {
         const notes = [
@@ -90,16 +89,18 @@ export default function App() {
             });
             Tone.Transport.schedule(() => {
                 synth.triggerAttack(300, "0:0", Number(notes[index][1]));
-                synth.frequency.setValueAtTime(Math.random() * (400 - 200) + 200, "0:0");
-                synth.frequency.setTargetAtTime(Math.random() * (400 - 200) + 200, "0:2", 10);
-                synth.frequency.setTargetAtTime(Math.random() * (400 - 200) + 200, "1:0", 10);
-                synth.frequency.setTargetAtTime(Math.random() * (400 - 200) + 200, "1:2", 10);
-                synth.frequency.exponentialRampToValueAtTime(Math.random() * (400 - 200) + 200, "2:0");
+                synth.frequency.setValueAtTime(Math.random() * 200 + 200, "0:0");
+                ////synth.frequency.setTargetAtTime(Math.random() * 200 + 200, "0:2", 10);
+                ////synth.frequency.setTargetAtTime(Math.random() * 200 + 200, "1:0", 10);
+                ////synth.frequency.setTargetAtTime(Math.random() * 200 + 200, "1:2", 10);
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, "0:3");
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, "1:2");
+                synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, "2:0");
                 synth.frequency.exponentialRampToValueAtTime(notes[index][0], "3:1");
                 synth.triggerRelease("7:1");
 
-                synth.volume.setValueAtTime(-50, "0:0");
-                synth.volume.rampTo(-10, "1:3", "1:0");
+                synth.volume.setValueAtTime(-40, "0:0");
+                synth.volume.rampTo(-10, "1:3", "1:2");
             }, "0:0");
         });
 
@@ -125,8 +126,7 @@ export default function App() {
         });
     };
     return (
-        <Button
-            variant="outlined"
+        <button
             onClick={async () => {
                 if (!isPlaying) {
                     try {
@@ -141,6 +141,8 @@ export default function App() {
             disabled={isPlaying}
         >
             {isPlaying ? "Playing..." : "Play Deep Note"}
-        </Button>
+        </button>
     );
 }
+
+export default App;
