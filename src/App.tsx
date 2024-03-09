@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import * as Tone from "tone";
 import { initializeTonejs, startDeepNote } from "./DeepNote";
 
 function App() {
@@ -12,18 +11,12 @@ function App() {
         <button
             onClick={async () => {
                 if (!isPlaying) {
-                    await Tone.start().then(() => {
-                        Tone.context.resume().then(() => {
-                            if (Tone.context.state === "running") {
-                                if (isFirst) {
-                                    initializeTonejs(setIsPlaying);
-                                    setIsFirst(false);
-                                }
-                                setIsPlaying(true);
-                                startDeepNote();
-                            }
-                        });
-                    });
+                    if (isFirst) {
+                        initializeTonejs(setIsPlaying);
+                        setIsFirst(false);
+                    }
+                    setIsPlaying(true);
+                    startDeepNote();
                 }
             }}
             disabled={isPlaying}
