@@ -10,5 +10,5 @@ THX が Deep Note の譜面公開してるから [Tone.js](https://github.com/To
 
 ## 既知の問題
 
--   [ ] 何故か 1 回しか再生できない
+-   **グリッサンドしなくなった**
 -   （何故か `.gitignore` に含んでるつもりの `.vscode` ディレクトリが晒されてる）

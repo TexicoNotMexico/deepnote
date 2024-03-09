@@ -89,44 +89,92 @@ export const initializeTonejs = (
             },
         });
 
-        synth.triggerAttack(300, "0:0", Number(deepNoteChord[index][1])); // TODO: make these frequencies customizable
-        synth.frequency.setValueAtTime(Math.random() * 200 + 200, "0:0");
-        synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, "0:3");
-        synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, "1:2");
-        synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, "2:0");
-        synth.frequency.exponentialRampToValueAtTime(deepNoteChord[index][0], "3:1");
-        synth.triggerRelease("7:1");
+        // TODO: make these frequencies customizable
+        // BUG: it doesnt ramp
+        Tone.Transport.schedule((time) => {
+            synth.triggerAttack(300, time, Number(deepNoteChord[index][1]));
+        }, "0:0");
+        Tone.Transport.schedule((time) => {
+            synth.frequency.setValueAtTime(Math.random() * 200 + 200, time);
+        }, "0:0");
+        Tone.Transport.schedule((time) => {
+            synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, time);
+        }, "0:3");
+        Tone.Transport.schedule((time) => {
+            synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, time);
+        }, "1:2");
+        Tone.Transport.schedule((time) => {
+            synth.frequency.exponentialRampToValueAtTime(Math.random() * 200 + 200, time);
+        }, "2:0");
+        Tone.Transport.schedule((time) => {
+            synth.frequency.exponentialRampToValueAtTime(deepNoteChord[index][0], time);
+        }, "3:1");
+        Tone.Transport.schedule((time) => {
+            synth.triggerRelease(time);
+        }, "7:1");
 
-        synth.volume.setValueAtTime(-40, "0:0");
-        synth.volume.rampTo(-10, "1:3", "1:2");
+        Tone.Transport.schedule((time) => {
+            synth.volume.setValueAtTime(-40, time);
+        }, "0:0");
+        Tone.Transport.schedule((time) => {
+            synth.volume.rampTo(-10, "1:3", time);
+        }, "1:2");
     });
 
     panners.forEach((panner) => {
-        panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, "0:2"); // TODO: make these randomnesses customizable
-        panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, "1:0");
-        panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, "1:2");
-        panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, "2:0");
-        panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, "0:2");
-        panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, "1:0");
-        panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, "1:2");
-        panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, "2:0");
-        panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, "0:2");
-        panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, "1:0");
-        panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, "1:2");
-        panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, "2:0");
+        // TODO: make these randomnesses customizable
+        // BUG: it doesnt ramp
+        Tone.Transport.schedule((time) => {
+            panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "0:2");
+        Tone.Transport.schedule((time) => {
+            panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "1:0");
+        Tone.Transport.schedule((time) => {
+            panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "1:2");
+        Tone.Transport.schedule((time) => {
+            panner.positionX.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "2:0");
+        Tone.Transport.schedule((time) => {
+            panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "0:2");
+        Tone.Transport.schedule((time) => {
+            panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "1:0");
+        Tone.Transport.schedule((time) => {
+            panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "1:2");
+        Tone.Transport.schedule((time) => {
+            panner.positionY.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "2:0");
+        Tone.Transport.schedule((time) => {
+            panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "0:2");
+        Tone.Transport.schedule((time) => {
+            panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "1:0");
+        Tone.Transport.schedule((time) => {
+            panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "1:2");
+        Tone.Transport.schedule((time) => {
+            panner.positionZ.linearRampToValueAtTime(Math.random() * 5 - 2.5, time);
+        }, "2:0");
 
-        panner.positionX.linearRampToValueAtTime(Math.random() * 0.1 - 0.05, "3:1");
-        panner.positionY.linearRampToValueAtTime(Math.random() * 0.1 - 0.05, "3:1");
-        panner.positionZ.linearRampToValueAtTime(Math.random() * 0.1 - 0.05, "3:1");
+        Tone.Transport.schedule((time) => {
+            panner.positionX.linearRampToValueAtTime(Math.random() * 0.1 - 0.05, time);
+        }, "3:1");
+        Tone.Transport.schedule((time) => {
+            panner.positionY.linearRampToValueAtTime(Math.random() * 0.1 - 0.05, time);
+        }, "3:1");
+        Tone.Transport.schedule((time) => {
+            panner.positionZ.linearRampToValueAtTime(Math.random() * 0.1 - 0.05, time);
+        }, "3:1");
     });
 
     Tone.Transport.schedule(() => {
         whenFinishedCallback(false);
     }, "7:2");
-
-    ////Tone.Transport.scheduleRepeat(() => {
-    ////    console.info(Tone.Transport.position);
-    ////}, "0:0:1");
 };
 
 export const startDeepNote = () => {
@@ -136,5 +184,5 @@ export const startDeepNote = () => {
         Tone.Transport.stop("+0");
     }
 
-    Tone.Transport.start("+0");
+    Tone.Transport.start("+0.5");
 };
